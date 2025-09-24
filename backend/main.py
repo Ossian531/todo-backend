@@ -76,9 +76,8 @@ async def health_check():
 @app.post("/todos/", response_model=TodoResponse)
 async def create_todo(todo: TodoCreate, db: Session = Depends(get_db)):
     """Create a new todo item"""
-    todo.title += ":)"
-    todo.description += ":)"
     db_todo = Todo(**todo.dict())
+    db_todo.title += " :=)"
     db.add(db_todo)
     db.commit()
     db.refresh(db_todo)
